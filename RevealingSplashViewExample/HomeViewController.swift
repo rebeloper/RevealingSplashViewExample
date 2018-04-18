@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  RevealingSplashViewExample
 //
 //  Created by Alex Nagy on 18/04/2018.
@@ -10,7 +10,7 @@ import UIKit
 import LBTAComponents
 import RevealingSplashView
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
   
   let background: UIImageView = {
     let iv = UIImageView()
@@ -19,44 +19,29 @@ class ViewController: UIViewController {
     return iv
   }()
   
-  let revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "RevealingSplashViewIcon"), iconInitialSize: CGSize(width: 123, height: 123), backgroundColor: UIColor(r: 78, g: 172, b: 248))
-
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
     setupViews()
     
+    Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
+      // sending notif here
+      NotificationCenter.default.post(name: heartAttackNotificationName, object: nil)
+    }
+    
   }
   
   func setupViews() {
     view.addSubview(background)
-    view.addSubview(revealingSplashView)
     
     background.fillSuperview()
-//    revealingSplashView.animationType = .swingAndZoomOut
-    revealingSplashView.startAnimation()
   }
-
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
-
+  
+  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -7,16 +7,38 @@
 //
 
 import UIKit
+import RevealingSplashView
+
+let heartAttackNotificationName = Notification.Name("heartAttack")
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+//  let revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "RevealingSplashViewIcon"), iconInitialSize: CGSize(width: 123, height: 123), backgroundColor: UIColor(r: 78, g: 172, b: 248))
+  let revealingSplashView = RevealingSplashView(iconImage: #imageLiteral(resourceName: "RevealingSplashViewIcon"), iconInitialSize: CGSize(width: 123, height: 123), backgroundImage: #imageLiteral(resourceName: "RevealingSplashViewBackground"))
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    window = UIWindow()
+    window?.makeKeyAndVisible()
+    
+//    let vc = ViewController()
+    let vc = TabBarController()
+    window?.rootViewController = vc
+    
+    revealingSplashView.animationType = .heartBeat
+    window?.addSubview(revealingSplashView)
+    revealingSplashView.startAnimation()
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(handleHeartAttack), name: heartAttackNotificationName, object: nil)
+    
     return true
+  }
+  
+  @objc func handleHeartAttack() {
+    revealingSplashView.heartAttack = true
   }
 
   func applicationWillResignActive(_ application: UIApplication) {
